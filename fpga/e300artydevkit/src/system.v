@@ -1126,7 +1126,7 @@ module system
   assign ck_sck = gpio_29;
 
   // Use the LEDs for some more useful debugging things.
-  assign led_0 = ck_rst;
+  assign led_0 = ck_rst & sw_0;
   assign led_1 = SRST_n;
   assign led_2 = dut_io_pads_aon_pmu_dwakeup_n_i_ival;
   assign led_3 = gpio_14;

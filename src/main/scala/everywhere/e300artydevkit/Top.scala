@@ -12,6 +12,7 @@ import sifive.blocks.devices.mockaon.{MockAONConfig, PeripheryMockAON, Periphery
 import sifive.blocks.devices.pwm.{PWMConfig, PeripheryPWM, PeripheryPWMBundle, PeripheryPWMModule, PWMGPIOPort}
 import sifive.blocks.devices.spi.{SPIConfig, PeripherySPI, PeripherySPIBundle, PeripherySPIModule, SPIFlashConfig, PeripherySPIFlash, PeripherySPIFlashBundle, PeripherySPIFlashModule, SPIPinsIO, SPIGPIOPort}
 import sifive.blocks.devices.uart.{UARTConfig, PeripheryUART, PeripheryUARTBundle, PeripheryUARTModule, UARTGPIOPort}
+import sifive.blocks.devices.xilinxaximem._
 import sifive.blocks.util.ResetCatchAndSync
 import util._
 
@@ -57,6 +58,8 @@ class E300ArtyDevKitCoreplexModule[+L <: E300ArtyDevKitCoreplex, +B <: E300ArtyD
 class E300ArtyDevKitSystem(implicit p: Parameters) extends BaseTop
     with E300ArtyDevKitPeripheryConfigs
     with PeripheryBootROM
+    with PeripheryOnChipRAM1
+    with PeripheryOnChipRAM2
     with PeripheryDebug
     with PeripheryMockAON
     with PeripheryUART
@@ -64,6 +67,7 @@ class E300ArtyDevKitSystem(implicit p: Parameters) extends BaseTop
     with PeripherySPI
     with PeripheryGPIO
     with PeripheryPWM
+//    with PeripheryXilinxAXIMem
     with HardwiredResetVector {
   override lazy val module = new E300ArtyDevKitSystemModule(this, () => new E300ArtyDevKitSystemBundle(this))
 
@@ -75,6 +79,8 @@ class E300ArtyDevKitSystem(implicit p: Parameters) extends BaseTop
 class E300ArtyDevKitSystemBundle[+L <: E300ArtyDevKitSystem](_outer: L) extends BaseTopBundle(_outer)
     with E300ArtyDevKitPeripheryConfigs
     with PeripheryBootROMBundle
+    with PeripheryOnChipRAM1Bundle
+    with PeripheryOnChipRAM2Bundle
     with PeripheryDebugBundle
     with PeripheryUARTBundle
     with PeripherySPIBundle
@@ -82,12 +88,15 @@ class E300ArtyDevKitSystemBundle[+L <: E300ArtyDevKitSystem](_outer: L) extends 
     with PeripherySPIFlashBundle
     with PeripheryMockAONBundle
     with PeripheryPWMBundle
+//    with PeripheryXilinxAXIMemBundle
     with HardwiredResetVectorBundle
 
 class E300ArtyDevKitSystemModule[+L <: E300ArtyDevKitSystem, +B <: E300ArtyDevKitSystemBundle[L]](_outer: L, _io: () => B)
   extends BaseTopModule(_outer, _io)
     with E300ArtyDevKitPeripheryConfigs
     with PeripheryBootROMModule
+    with PeripheryOnChipRAM1Module
+    with PeripheryOnChipRAM2Module
     with PeripheryDebugModule
     with PeripheryUARTModule
     with PeripherySPIModule
@@ -95,6 +104,7 @@ class E300ArtyDevKitSystemModule[+L <: E300ArtyDevKitSystem, +B <: E300ArtyDevKi
     with PeripherySPIFlashModule
     with PeripheryMockAONModule
     with PeripheryPWMModule
+//    with PeripheryXilinxAXIMemModule
     with HardwiredResetVectorModule
 
 // Top
