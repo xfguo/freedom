@@ -28,10 +28,10 @@ class E300ArtyDevKitConfig extends Config(
   new WithCacheBlockBytes(32) ++
   new WithL1ICacheWays(2) ++
   new WithDefaultBtb ++
-  new WithFastMulDiv ++
+//  new WithFastMulDiv ++
   new WithDataScratchpad(16384) ++
   new WithNMemoryChannels(0) ++
   new WithoutFPU ++
-  new WithTLMonitors ++
+//  new WithTLMonitors ++
   new DefaultFreedomEConfig
 )
