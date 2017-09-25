@@ -40,9 +40,14 @@ module tb;
     dut_reset = 1'b0;
   end
 
-  assign dut_io_jtag_TCK = 1'b0;
-  assign dut_io_jtag_TMS = 1'b0;
-  assign dut_io_jtag_TDI = 1'b0;
-  assign dut_io_jtag_TRST = 1'b0;
+  JTAGVPI virtual_jtag(
+    .jtag_TMS (dut_io_jtag_TMS),
+    .jtag_TCK (dut_io_jtag_TCK),
+    .jtag_TDI (dut_io_jtag_TDI),
+    .jtag_TDO (dut_io_jtag_TDO),
+    .jtag_TRST (1'b0),
+    .enable(~dut_reset),
+    .init_done(~dut_reset)
+);
 
 endmodule

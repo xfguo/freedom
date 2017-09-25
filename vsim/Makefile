@@ -17,7 +17,7 @@ bb_vsrcs = $(base_dir)/vsrc/DebugTransportModuleJtag.v \
 
 sim_vsrcs = \
 	$(generated_dir)/$(long_name).v \
-	$(base_dir)/vsrc/SimDTM.v \
+	$(base_dir)/csrc/jtag_vpi.c \
 	$(bb_vsrcs) \
 	$(tb_vsrcs)
 
@@ -50,11 +50,19 @@ compile:
 	$(VCS) $(VCS_OPTS) -l vcs.log \
 		+define+DEBUG -debug_pp \
 
-# -P ${DEBUSSY_HOME}/share/PLI/vcs/LINUX/debussy.tab ${DEBUSSY_HOME}/share/PLI/vcs/LINUX/pli.a
-
 sim: compile
 	./simv -l simv.log \
-		+verbose +vcdplusfile=test.vpd \
 
-dbu: rtl
-	debussy -2001 -f vcs_args &
+sim_gui: compile
+	./simv -l simv.log \
+		-gui
+
+sim_jtag: compile
+	./simv -l simv.log \
+		+jtag_vpi_enable
+
+sim_jtag_gui: compile
+	./simv -l simv.log \
+		+jtag_vpi_enable \
+		-gui
+
