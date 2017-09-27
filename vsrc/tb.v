@@ -19,7 +19,7 @@ module tb;
     .io_jtag_TMS     (dut_io_jtag_TMS),
     .io_jtag_TDI     (dut_io_jtag_TDI),
     .io_jtag_TDO     (dut_io_jtag_TDO),
-    .io_jtag_TRST    (dut_io_jtag_TRST),
+    .io_jtag_TRST    (dut_reset),
     .io_jtag_DRV_TDO (dut_io_jtag_DRV_TDO)
   );
 
@@ -45,7 +45,7 @@ module tb;
     .jtag_TCK (dut_io_jtag_TCK),
     .jtag_TDI (dut_io_jtag_TDI),
     .jtag_TDO (dut_io_jtag_TDO),
-    .jtag_TRST (1'b0),
+    .jtag_TRST (dut_io_jtag_TRST),
     .enable(~dut_reset),
     .init_done(~dut_reset)
 );
